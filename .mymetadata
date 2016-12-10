@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="nkyapi"
+  id="myeclipse.1449288482421"
+  context-root="/nkyapi"
+  j2ee-spec="6.0"
+  archive="nkyapi.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

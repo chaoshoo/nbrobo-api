@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	   		
+	<bean id="runBatchContoller" class="com.net.nky.controller.RunBatchContoller">
+	</bean>
+    <!-- 定义调用对象和调用对象的方法 -->  
+    <bean id="jobtask_runbatch" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+        <!-- 调用的类 -->  
+        <property name="targetObject">  
+            <ref bean="runBatchContoller" />  
+        </property> 
+         
+        <!-- 调用类中的方法 -->  
+        <property name="targetMethod">  
+            <value>searchHospital</value>  
+        </property>  
+    </bean>
+    
+     
+    <!-- 查詢醫院科室和醫生触发时间 -->  
+    <bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail">  
+            <ref bean="jobtask_runbatch" />  
+        </property>  
+        <!-- cron表达式  0 3 0 ? * * 0 0 12 * * ?-->  
+        <property name="cronExpression">
+            <value>0 0 1 * * ?</value> 
+        </property>  
+    </bean> 
+    
+    <bean id="cancelOrderContoller" class="com.net.nky.controller.cancelOrderContoller">
+	</bean>
+    <bean id="cancelOrderTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+        <!-- 调用的类 -->  
+        <property name="targetObject">  
+            <ref bean="cancelOrderContoller" />  
+        </property> 
+         
+        <!-- 调用类中的方法 -->  
+        <property name="targetMethod">  
+            <value>cancelOrder</value>  
+        </property>  
+    </bean>
+    <bean id="cancelOrderTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail">  
+            <ref bean="cancelOrderTask" />  
+        </property>  
+        <!-- cron表达式  0 3 0 ? * * 0 0 12 * * ?-->  
+        <property name="cronExpression">
+            <value>0 0/15 * * * ?</value> 
+        </property>  
+    </bean> 
+   	
+   	<!-- 视屏时间快到了提醒 -->
+   	 <bean id="remoteRefuse" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+        <!-- 调用的类 -->  
+        <property name="targetObject">  
+            <ref bean="remoteRefuseServiceImpl" />  
+        </property> 
+         
+        <!-- 调用类中的方法 -->  
+        <property name="targetMethod">  
+            <value>refuseTime</value>  
+        </property>  
+    </bean>
+    <bean id="remoteRefuseTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="jobDetail">  
+            <ref bean="remoteRefuse" />  
+        </property>  
+        <property name="cronExpression">
+            <value>0 0/10 * * * ?</value> 
+        </property>  
+    </bean> 
+   	
+    
+    <!--总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+    <bean id="startQuertz" lazy-init="false" autowire="no"  
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+        <property name="triggers">  
+            <list>  
+          		<ref bean="doTime" />
+          		<ref bean="cancelOrderTime" />
+          		<ref bean="remoteRefuseTime"/>
+            </list>  
+        </property>  
+    </bean>  
+</beans>

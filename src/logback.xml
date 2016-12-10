@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  scan="true" scanPeriod="60 seconds" debug="false">
+	<contextName>finance</contextName>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{MM-dd HH:mm:ss.SSS} %-5level %logger{36}.%M-%L - %msg%n
+			</Pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+	</appender>
+	
+	<appender name="FILE_INFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/nkyapi.info.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS}  %-5level [%thread] %logger{36} %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+	</appender> 
+	
+	<appender name="FILE_ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/nkyapi.error.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS}  %-5level [%thread] %logger{36} %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+	</appender> 
+	<!-- ONLINE 关闭SQL和其他无关信息
+	<logger name="ch.qos.logback"  level="WARN" /> 
+	<logger name="org" level="WARN" />
+	<logger name="net.sf.ehcache" level="INFO" />
+	<logger name="com.net" level="INFO" />  
+	<logger name="java.sql" level="WARN" /> 
+	<logger name="org.apache.ibatis" level="WARN" /> 
+	<logger name="org.mybatis" level="WARN" /> 
+	<logger name="com.jfinal" level="WARN" /> 
+	 -->
+	
+	<!-- 
+	DEVELOP 可以打出SQL及更多细节-->
+	<logger name="ch.qos.logback"  level="DEBUG" /> 
+	<logger name="org" level="DEBUG" />
+	<logger name="org.springframework" level="DEBUG" />
+	<logger name="net.sf.ehcache" level="DEBUG" />
+	<logger name="com.net" level="DEBUG" />   
+	<logger name="java.sql" level="DEBUG" /> 
+	<logger name="org.apache.ibatis" level="DEBUG" /> 
+    <logger name="org.apache.ibatis.io.ResolverUtil" level="INFO" />
+    <logger name="com.ibatis.common.jdbc.ScriptRunner" level="debug" />
+	<logger name="com.jfinal" level="INFO" />
+	<logger name="com.mchange" level="INFO" />
+	
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<!-- jetty时，可以把下面2行注释掉 -->
+		<appender-ref ref="FILE_INFO" />
+		<appender-ref ref="FILE_ERROR" />
+	</root>
+</configuration>  
