@@ -281,6 +281,7 @@ public class PushUtil {
 	 */
 	public static String pushMsgToSingleDevice(String channelId, String title, String description,Integer msgType) {
 		try {
+			String result = "";
 			// 4. specify request arguments
 			//创建 Android的通知
 			JSONObject notification = new JSONObject();
@@ -293,16 +294,22 @@ public class PushUtil {
 			JSONObject jsonCustormCont = new JSONObject();
 			jsonCustormCont.put("msgType", msgType); //自定义内容，key-value
 			notification.put("custom_content", jsonCustormCont);
-
-			PushMsgToSingleDeviceRequest request = new PushMsgToSingleDeviceRequest().addChannelId(channelId)
-					.addMsgExpires(new Integer(3600)). // message有效时间
-//					addMessageType(1).// 1：通知,0:透传消息. 默认为0 注：IOS只有通知.
-					addMessage(notification.toString()).addDeviceType(3);// deviceType => 3:android, 4:ios
-			// 5. http request
-			PushMsgToSingleDeviceResponse response = getPushClient().pushMsgToSingleDevice(request);
-			// Http请求结果解析打印
-			LOG.debug("msgId: " + response.getMsgId() + ",sendTime: " + response.getSendTime());
-			return response.getMsgId();
+			for(int i = 0;i<3;i++){
+				PushMsgToSingleDeviceRequest request = new PushMsgToSingleDeviceRequest().addChannelId(channelId)
+						.addMsgExpires(new Integer(3600)). // message有效时间
+//						addMessageType(1).// 1：通知,0:透传消息. 默认为0 注：IOS只有通知.
+						addMessage(notification.toString()).addDeviceType(3);// deviceType => 3:android, 4:ios
+				// 5. http request
+				PushMsgToSingleDeviceResponse response = getPushClient().pushMsgToSingleDevice(request);
+				// Http请求结果解析打印
+				LOG.debug("msgId: " + response.getMsgId() + ",sendTime: " + response.getSendTime());
+				if(StringUtils.isNotEmpty(response.getMsgId()) && !result.equals("")){
+					result = response.getMsgId();
+					
+				}
+			}
+			
+			return result;
 		} catch (Exception e) {
 			LOG.error("推送消息到单台设备异常", e);
 		}
