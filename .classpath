@@ -75,5 +75,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-webmvc-3.2.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/strongProtocol-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
