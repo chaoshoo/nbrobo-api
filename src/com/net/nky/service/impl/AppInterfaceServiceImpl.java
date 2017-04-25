@@ -268,6 +268,47 @@ public class AppInterfaceServiceImpl implements AppInterfaceService {
 	}
 
 	@Override
+	public void useridcardlogin(JSONObject messageObj, JSONObject result){
+		Object idCard=messageObj.get("idcard");//手机号
+		Object android_tv_channel_id=messageObj.get("android_tv_channel_id");//证件号
+		
+		if((idCard==null||"".equals(idCard.toString())))
+		{
+			result.put("code", "0");
+			result.put("message", LOGIN_LACK);
+			return;
+		}
+		
+		
+		String sql=" SELECT * FROM  t_vip WHERE isvalid='1' and( papers_num = ? or vip_code = ? or login_account = ?)";
+		
+		List<Object> paraList = new ArrayList<Object>();
+		paraList.add(idCard);
+		paraList.add(idCard);
+		paraList.add(idCard);
+		
+		Record vipInfo = Db.findFirst(sql, paraList.toArray());
+		if(vipInfo == null){
+			Db.update("insert into t_vip (vip_code, login_account, login_password, isvalid, papers_num, modify_time,create_time) "+
+					" values(?,?,?,'1',?,NOW(),NOW())",
+					new Object[]{idCard, idCard, MD5Util.MD5("123456","UTF-8").toLowerCase(), idCard});
+			vipInfo = Db.findFirst(sql, paraList.toArray());
+		}
+		
+		result.put("vip_info",JsonUtil.getMapByJfinalRecord(vipInfo));
+		
+		if(android_tv_channel_id!=null && !"".equals(android_tv_channel_id.toString()))
+		{
+			vipInfo.set("android_tv_channel_id", android_tv_channel_id);
+			Db.update("t_vip", vipInfo);
+		}
+		
+		result.put("code", "1");
+		result.put("message", LOGIN_SUCCESS);
+		
+	}
+
+	@Override
 	public void useregist(JSONObject messageObj, JSONObject result)
 	{
 		String mobile = messageObj.getString("mobile");

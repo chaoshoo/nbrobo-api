@@ -57,6 +57,13 @@ public interface AppInterfaceService {
 	 */
 	void userlogin(JSONObject messageObj, JSONObject result);
 	
+	/**用户身份证登陆
+	 * http://localhost:8080/nkyapi/mobile/interface.do?content={type:}
+	 * @param messageObj
+	 * @param result
+	 */
+	void useridcardlogin(JSONObject messageObj, JSONObject result);
+	
 	/**用户注册
 	 * http://localhost:8080/nkyapi/mobile/interface.do?content={type:'useregist'}
 	 * @param messageObj
