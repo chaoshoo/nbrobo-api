@@ -292,6 +292,10 @@ public class AppInterfaceServiceImpl implements AppInterfaceService {
 			Db.update("insert into t_vip (vip_code, card_code, login_account, login_password, isvalid, papers_num, modify_time,create_time) "+
 					" values(?,?,?,?,'1',?,NOW(),NOW())",
 					new Object[]{idCard, idCard, idCard, MD5Util.MD5("123456","UTF-8").toLowerCase(), idCard});
+
+			Db.update("insert into doctor_vip (vip_code,doctor_code,create_time) "+
+					" values(?,?,NOW())",
+					new Object[]{idCard, "D1001"});
 			vipInfo = Db.findFirst(sql, paraList.toArray());
 		}
 		
