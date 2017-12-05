@@ -46,7 +46,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jersey-spring-1.19.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfinal-2.0-bin-with-src.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfinal-2.0-bin.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-lib-2.4-jdk15.jar" sourcepath="C:/Users/Chaos/AppData/Local/Temp/.org.sf.feeling.decompiler1511419911465/source/json-lib-2.4-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsoup-1.7.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jul-to-slf4j-1.7.21.jar"/>
@@ -75,6 +75,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/strongProtocol-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_71"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

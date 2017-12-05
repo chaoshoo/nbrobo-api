@@ -1,5 +1,9 @@
 package com.net.nky.service;
 
+import java.util.Date;
+
+import com.jfinal.plugin.activerecord.Db;
+
 import net.sf.json.JSONObject;
 
 /**
@@ -401,4 +405,8 @@ http://localhost:8080/nkyapi/mobile/interface.do?content={%27type%27:%27querymea
 	 * @param result
 	 */
 	void deletechannelname(JSONObject messageObj, JSONObject result);
+	
+	public void insertgeneralinspectdata(JSONObject messageObj, JSONObject result);
+
+    public void findgeneralinspectdata(JSONObject messageObj, JSONObject result);
 }
